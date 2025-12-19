@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "drop2inv",
+	"version": "${version}",
+	"name": "Drop2Inv",
+	"description": "This mod adds the function of receiving block drops directly into the inventory without the item falling to the ground.",
+	"authors": [
+		"Guayand0"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/drop2inv/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.guayand0.Drop2Inv"
+		],
+		"client": [
+			"com.guayand0.Drop2InvClient"
+		]
+	},
+	"mixins": [
+		"drop2inv.mixins.json",
+		{
+			"config": "drop2inv.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": ">=1.20.5 <=1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

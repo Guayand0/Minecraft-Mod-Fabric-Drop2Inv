@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,8 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Drop2Inv implements ModInitializer {
@@ -40,12 +40,15 @@ public class Drop2Inv implements ModInitializer {
 		PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
 			if (world.isClientSide()) return true;
 			if (!(world instanceof ServerLevel serverWorld)) return true;
-			if (player.isCreative()) return true;
+			//if (player.isCreative()) return true;
+			if (player.getAbilities().instabuild) return true;
 
 			Block block = state.getBlock();
-
-			if (isVerticalBlock(block)) {
-				cancelVerticalBlocksAbove(serverWorld, player, pos, block);
+			if (block == Blocks.CHORUS_PLANT) {
+				breakChorusPlantBranch(serverWorld, player, pos);
+				return false; // Cancela el drop original
+			}else if (isVerticalBlock(block)) {
+				breakVerticalBlocksAbove(serverWorld, player, pos, block);
 				return false; // Cancela el drop original
 			}
             return true;
@@ -54,7 +57,8 @@ public class Drop2Inv implements ModInitializer {
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
 			if (world.isClientSide()) return;
 			if (!(world instanceof ServerLevel serverWorld)) return;
-			if (player.isCreative()) return;
+			//if (player.isCreative()) return;
+			if (player.getAbilities().instabuild) return;
 
 			Block block = state.getBlock();
 
@@ -70,7 +74,38 @@ public class Drop2Inv implements ModInitializer {
 				block == Blocks.CACTUS || block == Blocks.KELP_PLANT;
 	}
 
-	private void cancelVerticalBlocksAbove(ServerLevel world, Player player, BlockPos pos, Block blockType) {
+	private void breakChorusPlantBranch(ServerLevel world, Player player, BlockPos pos) {
+		Set<BlockPos> visited = new HashSet<>();
+		Stack<BlockPos> stack = new Stack<>();
+		stack.push(pos);
+
+		while (!stack.isEmpty()) {
+			BlockPos current = stack.pop();
+			if (visited.contains(current)) continue;
+			visited.add(current);
+
+			BlockState state = world.getBlockState(current);
+			Block block = state.getBlock();
+			if (block != Blocks.CHORUS_PLANT) continue;
+
+			// Agregar bloques de arriba primero (para procesarlos antes)
+			BlockPos above = current.above();
+			stack.push(above);
+
+			// Agregar bloques laterales conectados
+			for (Direction dir : new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST}) {
+				BlockPos neighbor = above.relative(dir);
+				stack.push(neighbor);
+			}
+
+			// Ahora destruir este bloque después de sus "hijos"
+			giveBlockDropsToPlayer(world, player, current, state, null);
+			PLAYER_BROKEN_BLOCKS.add(current.immutable());
+			world.destroyBlock(current, false);
+		}
+	}
+
+	private void breakVerticalBlocksAbove(ServerLevel world, Player player, BlockPos pos, Block blockType) {
 		BlockPos currentPos = pos;
 		while (true) {
 			BlockState stateAbove = world.getBlockState(currentPos);

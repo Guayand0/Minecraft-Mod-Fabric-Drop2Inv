@@ -8,18 +8,15 @@
 		"Guayand0"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv",
+		"sources": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv"
 	},
-	"license": "CC0-1.0",
+	"license": "Apache-2.0",
 	"icon": "assets/drop2inv/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"com.guayand0.Drop2Inv"
-		],
-		"client": [
-			"com.guayand0.Drop2InvClient"
 		]
 	},
 	"mixins": [
@@ -34,5 +31,10 @@
 		"minecraft": ">=1.20.5 <=1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"updateJson": "https://raw.githubusercontent.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv/main/update.json"
+		}
 	}
 }

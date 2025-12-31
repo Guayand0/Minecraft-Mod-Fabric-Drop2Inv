@@ -3,7 +3,7 @@
 	"package": "com.guayand0.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+      "MobDropMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

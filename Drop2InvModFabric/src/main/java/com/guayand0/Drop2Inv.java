@@ -1,11 +1,33 @@
 package com.guayand0;
 
 import net.fabricmc.api.ModInitializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Drop2Inv implements ModInitializer {
+
+	public static final String MOD_ID = "drop2inv";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+	@Override
+	public void onInitialize() {
+		LOGGER.info("Hello Fabric world!");
+
+		BlockBreakHandler.register();
+		DropCancelHandler.register();
+	}
+}
+
+
+/*package com.guayand0;
+
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -33,14 +55,13 @@ public class Drop2Inv implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
 		registerBlockBreak();
-		cancelPlayerBlockDrops();
+		cancelBlockDrops();
 	}
 
 	private void registerBlockBreak() {
 		PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
 			if (world.isClientSide()) return true;
 			if (!(world instanceof ServerLevel serverWorld)) return true;
-			//if (player.isCreative()) return true;
 			if (player.getAbilities().instabuild) return true;
 
 			Block block = state.getBlock();
@@ -57,7 +78,6 @@ public class Drop2Inv implements ModInitializer {
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
 			if (world.isClientSide()) return;
 			if (!(world instanceof ServerLevel serverWorld)) return;
-			//if (player.isCreative()) return;
 			if (player.getAbilities().instabuild) return;
 
 			Block block = state.getBlock();
@@ -140,7 +160,7 @@ public class Drop2Inv implements ModInitializer {
 		}
 	}
 
-	private void cancelPlayerBlockDrops() {
+	private void cancelBlockDrops() {
 		ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
 			if (!(entity instanceof ItemEntity item)) return;
 			if (!(world instanceof ServerLevel)) return;
@@ -154,3 +174,4 @@ public class Drop2Inv implements ModInitializer {
 		});
 	}
 }
+*/

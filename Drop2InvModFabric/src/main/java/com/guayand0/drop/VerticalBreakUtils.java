@@ -1,12 +1,12 @@
-package com.guayand0;
+package com.guayand0.drop;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class VerticalBreakUtils {
                 block == Blocks.KELP_PLANT;
     }
 
-    public static void breakVertical(ServerLevel world, Player player, BlockPos pos, Block type) {
+    public static void breakVertical(ServerWorld world, PlayerEntity player, BlockPos pos, Block type) {
         BlockPos current = pos;
 
         while (true) {
@@ -36,12 +36,12 @@ public class VerticalBreakUtils {
 
             DropUtils.giveDrops(world, player, current, state, null);
             DropTracker.mark(current);
-            world.destroyBlock(current, false);
-            current = current.above();
+            world.breakBlock(current, false);
+            current = current.up();
         }
     }
 
-    public static void breakChorus(ServerLevel world, Player player, BlockPos start) {
+    public static void breakChorus(ServerWorld world, PlayerEntity player, BlockPos start) {
         Set<BlockPos> visited = new HashSet<>();
         Stack<BlockPos> stack = new Stack<>();
         stack.push(start);
@@ -53,16 +53,16 @@ public class VerticalBreakUtils {
             BlockState state = world.getBlockState(pos);
             if (state.getBlock() != Blocks.CHORUS_PLANT) continue;
 
-            BlockPos above = pos.above();
+            BlockPos above = pos.up();
             stack.push(above);
 
-            for (Direction d : Direction.Plane.HORIZONTAL) {
-                stack.push(above.relative(d));
+            for (Direction d : Direction.Type.HORIZONTAL) {
+                stack.push(above.offset(d));
             }
 
             DropUtils.giveDrops(world, player, pos, state, null);
             DropTracker.mark(pos);
-            world.destroyBlock(pos, false);
+            world.breakBlock(pos, false);
         }
     }
 }

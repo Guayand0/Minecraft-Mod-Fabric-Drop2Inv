@@ -1,28 +1,26 @@
-package com.guayand0;
+package com.guayand0.drop;
 
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 
 public class BlockBreakHandler {
 
     public static void register() {
 
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
-            if (world.isClientSide() || !(world instanceof ServerLevel serverWorld)) return true;
-            if (player.getAbilities().instabuild) return true;
+            if (world.isClient() || !(world instanceof ServerWorld serverWorld)) return true;
+            if (player.getAbilities().creativeMode) return true;
 
             Block block = state.getBlock();
 
             if (TreeBreakUtils.isLog(state)) {
 
-                ItemStack held = player.getMainHandItem();
-                if (!(held.getItem() instanceof AxeItem)) {
-                    return true; // sin hacha: rompe solo el bloque normal
-                }
+                ItemStack held = player.getMainHandStack();
+                if (!(held.getItem() instanceof AxeItem)) return true;
 
                 TreeBreakUtils.breakTree(serverWorld, player, pos);
                 return false;
@@ -38,13 +36,12 @@ public class BlockBreakHandler {
                 return false;
             }
 
-
             return true;
         });
 
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-            if (world.isClientSide() || !(world instanceof ServerLevel serverWorld)) return;
-            if (player.getAbilities().instabuild) return;
+            if (world.isClient() || !(world instanceof ServerWorld serverWorld)) return;
+            if (player.getAbilities().creativeMode) return;
 
             if (!VerticalBreakUtils.isVerticalBlock(state.getBlock())) {
                 DropUtils.giveDrops(serverWorld, player, pos, state, blockEntity);

@@ -1,6 +1,9 @@
 package com.guayand0.drop;
 
+import com.guayand0.utils.CropUtils;
+import com.guayand0.utils.DropUtils;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.minecraft.block.CropBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
@@ -17,22 +20,29 @@ public class BlockBreakHandler {
 
             Block block = state.getBlock();
 
-            if (TreeBreakUtils.isLog(state)) {
+            if (block instanceof CropBlock) {
+                CropUtils.giveCropDrops(serverWorld, player, pos, state, blockEntity);
+                serverWorld.breakBlock(pos, false); // rompe sin drops
+                DropTracker.mark(pos);
+                return false;
+            }
+
+            if (TreeBreakHandler.isLog(state)) {
 
                 ItemStack held = player.getMainHandStack();
                 if (!(held.getItem() instanceof AxeItem)) return true;
 
-                TreeBreakUtils.breakTree(serverWorld, player, pos);
+                TreeBreakHandler.breakTree(serverWorld, player, pos);
                 return false;
             }
 
             if (block == Blocks.CHORUS_PLANT) {
-                VerticalBreakUtils.breakChorus(serverWorld, player, pos);
+                VerticalBreakHandler.breakChorus(serverWorld, player, pos);
                 return false;
             }
 
-            if (VerticalBreakUtils.isVerticalBlock(block)) {
-                VerticalBreakUtils.breakVertical(serverWorld, player, pos, block);
+            if (VerticalBreakHandler.isVerticalBlock(block)) {
+                VerticalBreakHandler.breakVertical(serverWorld, player, pos, block);
                 return false;
             }
 
@@ -43,7 +53,9 @@ public class BlockBreakHandler {
             if (world.isClient() || !(world instanceof ServerWorld serverWorld)) return;
             if (player.getAbilities().creativeMode) return;
 
-            if (!VerticalBreakUtils.isVerticalBlock(state.getBlock())) {
+            if (state.getBlock() instanceof CropBlock) return;
+
+            if (!VerticalBreakHandler.isVerticalBlock(state.getBlock())) {
                 DropUtils.giveDrops(serverWorld, player, pos, state, blockEntity);
                 DropTracker.mark(pos);
             }

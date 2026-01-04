@@ -1,4 +1,4 @@
-package com.guayand0.drop;
+package com.guayand0.utils;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;

@@ -1,5 +1,6 @@
 package com.guayand0.drop;
 
+import com.guayand0.utils.DropUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.server.world.ServerWorld;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class VerticalBreakUtils {
+public class VerticalBreakHandler {
 
     public static boolean isVerticalBlock(Block block) {
         return block == Blocks.BAMBOO ||

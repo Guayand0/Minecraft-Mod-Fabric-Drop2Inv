@@ -1,5 +1,6 @@
 package com.guayand0.drop;
 
+import com.guayand0.utils.DropUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,7 +9,7 @@ import net.minecraft.registry.tag.BlockTags;
 
 import java.util.*;
 
-public class LeafBreakUtils {
+public class LeafBreakHandler {
 
     public static void breakNearbyLeaves(ServerWorld world, PlayerEntity player, BlockPos start) {
         for (int i = 0; i < 3; i++) {

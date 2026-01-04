@@ -3,7 +3,7 @@
 	"id": "drop2inv",
 	"version": "${version}",
 	"name": "Drop2Inv",
-	"description": "This mod adds the function of receiving block drops directly into the inventory without the item falling to the ground.",
+	"description": "This mod adds the function of receiving block and mob drops directly into the inventory without the item falling to the ground.",
 	"authors": [
 		"Guayand0"
 	],

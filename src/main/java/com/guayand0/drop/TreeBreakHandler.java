@@ -1,5 +1,6 @@
 package com.guayand0.drop;
 
+import com.guayand0.utils.DropUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -11,7 +12,7 @@ import net.minecraft.registry.tag.BlockTags;
 
 import java.util.*;
 
-public class TreeBreakUtils {
+public class TreeBreakHandler {
 
     public static boolean isLog(BlockState state) {
         return state.isIn(BlockTags.LOGS);
@@ -57,6 +58,6 @@ public class TreeBreakUtils {
                     axe.damage(1, serverPlayer, EquipmentSlot.MAINHAND);
                 });
 
-        LeafBreakUtils.breakNearbyLeaves(world, player, start);
+        LeafBreakHandler.breakNearbyLeaves(world, player, start);
     }
 }

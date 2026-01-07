@@ -1,4 +1,4 @@
-package com.guayand0.drop;
+package com.guayand0.blocks;
 
 import net.minecraft.util.math.BlockPos;
 
@@ -16,4 +16,9 @@ public class DropTracker {
     public static boolean consume(BlockPos pos) {
         return BROKEN.remove(pos);
     }
+
+    public static void clear() {
+        BROKEN.clear();
+    }
+
 }

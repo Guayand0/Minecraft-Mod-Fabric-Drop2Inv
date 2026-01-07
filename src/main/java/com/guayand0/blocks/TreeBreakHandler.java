@@ -1,6 +1,9 @@
-package com.guayand0.drop;
+package com.guayand0.blocks;
 
-import com.guayand0.utils.DropUtils;
+import com.guayand0.config.Drop2InvConfig;
+import com.guayand0.blocks.utils.DropUtils;
+import com.guayand0.blocks.utils.TreeUtils;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -8,19 +11,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.block.BlockState;
-import net.minecraft.registry.tag.BlockTags;
 
 import java.util.*;
 
 public class TreeBreakHandler {
 
-    public static boolean isLog(BlockState state) {
-        return state.isIn(BlockTags.LOGS);
-    }
-
     public static void breakTree(ServerWorld world, PlayerEntity player, BlockPos start) {
 
         if (!(player instanceof ServerPlayerEntity serverPlayer)) return;
+
+        Drop2InvConfig config =
+                AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
 
         ItemStack axe = player.getMainHandStack();
 
@@ -34,7 +35,7 @@ public class TreeBreakHandler {
             if (!visited.add(pos)) continue;
 
             BlockState state = world.getBlockState(pos);
-            if (!state.isIn(BlockTags.LOGS)) continue;
+            if (!TreeUtils.isLog(state)) continue;
 
             logs.add(pos);
 
@@ -52,12 +53,14 @@ public class TreeBreakHandler {
                     BlockState state = world.getBlockState(pos);
 
                     DropUtils.giveDrops(world, player, pos, state, null);
-                    DropTracker.mark(pos);
                     world.breakBlock(pos, false);
 
                     axe.damage(1, serverPlayer, EquipmentSlot.MAINHAND);
                 });
 
-        LeafBreakHandler.breakNearbyLeaves(world, player, start);
+
+        if (config.blocks.break_tree_leaf) {
+            LeafBreakHandler.breakLeavesFromLogs(world, player, logs);
+        }
     }
 }

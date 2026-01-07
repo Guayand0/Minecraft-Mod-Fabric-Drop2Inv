@@ -1,7 +1,7 @@
 package com.guayand0;
 
-import com.guayand0.drop.BlockBreakHandler;
-import com.guayand0.drop.DropCancelHandler;
+import com.guayand0.blocks.BlockBreakHandler;
+import com.guayand0.blocks.DropCancelHandler;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

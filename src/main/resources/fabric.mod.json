@@ -2,6 +2,7 @@
 	"schemaVersion": 1,
 	"id": "drop2inv",
 	"version": "${version}",
+
 	"name": "Drop2Inv",
 	"description": "This mod adds the function of receiving block and mob drops directly into the inventory without the item falling to the ground.",
 	"authors": [
@@ -9,29 +10,41 @@
 	],
 	"contact": {
 		"homepage": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv",
-		"sources": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv"
+		"sources": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv",
+		"issues": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv/issues"
 	},
+
 	"license": "Apache-2.0",
 	"icon": "assets/drop2inv/icon.png",
+
 	"environment": "*",
 	"entrypoints": {
+		"client": [
+			"com.guayand0.Drop2InvClient"
+		],
 		"main": [
 			"com.guayand0.Drop2Inv"
+		],
+		"modmenu": [
+          "com.guayand0.config.compat.ModMenuIntegration"
 		]
 	},
 	"mixins": [
-		"drop2inv.mixins.json",
-		{
-			"config": "drop2inv.client.mixins.json",
-			"environment": "client"
-		}
+		"drop2inv.mixins.json"
 	],
+
 	"depends": {
 		"fabricloader": ">=0.17.3",
-		"minecraft": ">=1.21.2",
+		"minecraft": ">=1.21.2 <=1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
+
+	"recommends": {
+		"modmenu": "*",
+		"cloth-config": "*"
+	},
+
 	"custom": {
 		"modmenu": {
 			"links": {

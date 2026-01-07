@@ -1,4 +1,4 @@
-package com.guayand0.utils;
+package com.guayand0.blocks.utils;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;
@@ -13,8 +13,7 @@ import java.util.List;
 
 public class DropUtils {
 
-    public static void giveDrops(ServerWorld world, PlayerEntity player, BlockPos pos,
-                                 BlockState state, @Nullable BlockEntity blockEntity) {
+    public static void giveDrops(ServerWorld world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
 
         ItemStack tool = player.getMainHandStack();
 

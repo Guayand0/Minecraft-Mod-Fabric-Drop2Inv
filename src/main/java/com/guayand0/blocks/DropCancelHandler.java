@@ -1,4 +1,4 @@
-package com.guayand0.drop;
+package com.guayand0.blocks;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.server.world.ServerWorld;

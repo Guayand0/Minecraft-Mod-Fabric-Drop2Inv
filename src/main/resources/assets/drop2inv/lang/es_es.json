@@ -1,0 +1,42 @@
+{
+  "text.autoconfig.drop2inv.title": "Drop2Inv",
+
+
+  "text.autoconfig.drop2inv.category.general": "General",
+  "text.autoconfig.drop2inv.category.general.enabled": "Habilitar mod",
+  "text.autoconfig.drop2inv.category.general.enabled.@Tooltip": "Si está activado, el mod funciona",
+
+
+  "text.autoconfig.drop2inv.category.blocks": "Bloques",
+  "text.autoconfig.drop2inv.category.blocks.blocks_to_inv": "Drops al inventario",
+  "text.autoconfig.drop2inv.category.blocks.blocks_to_inv.@Tooltip": "Si está activado, los drops al romper bloques irán directos al inventario",
+  "text.autoconfig.drop2inv.category.blocks.special": "Funciones especiales",
+  "text.autoconfig.drop2inv.category.blocks.special.break_tree_logs": "Troncos de árbol",
+  "text.autoconfig.drop2inv.category.blocks.special.break_tree_logs.@Tooltip": "Si está activado, al romper un tronco de árbol se rompen todos los troncos de ese árbol",
+  "text.autoconfig.drop2inv.category.blocks.special.break_tree_leaf": "Hojas de árbol",
+  "text.autoconfig.drop2inv.category.blocks.special.break_tree_leaf.@Tooltip": "Si está activado, al rompen todos los troncos de un árbol también se rompen las hojas (solo funciona si Troncos de árbol está activado)",
+  "text.autoconfig.drop2inv.category.blocks.special.break_crops": "Cultivos",
+  "text.autoconfig.drop2inv.category.blocks.special.break_crops.@Tooltip": "Si está activado, los drops al romper cultivos irán directos al inventario",
+  "text.autoconfig.drop2inv.category.blocks.special.break_vertical": "Bloques verticales",
+  "text.autoconfig.drop2inv.category.blocks.special.break_vertical.@Tooltip": "Si está activado, los drops de los bloques que crecen en vertical como bambú, cactus, caña de azúcar y algas irán directos al inventario",
+  "text.autoconfig.drop2inv.category.blocks.special.break_chorus": "Planta chorus",
+  "text.autoconfig.drop2inv.category.blocks.special.break_chorus.@Tooltip": "Si está activado, los drops al romper plantas de chorus irán directos al inventario",
+
+
+  "text.autoconfig.drop2inv.category.mobs": "Mobs",
+  "text.autoconfig.drop2inv.category.mobs.mobs_to_inv": "Drops al inventario",
+  "text.autoconfig.drop2inv.category.mobs.mobs_to_inv.@Tooltip": "Si está activado, los drops al matar mobs irán directos al inventario",
+  "text.autoconfig.drop2inv.category.mobs.category": "Por categoría",
+  "text.autoconfig.drop2inv.category.mobs.category.hostile": "Hostiles",
+  "text.autoconfig.drop2inv.category.mobs.category.hostile.@Tooltip": "Si está activado, los drops al matar mobs hostiles irán directos al inventario",
+  "text.autoconfig.drop2inv.category.mobs.category.neutral": "Neutros",
+  "text.autoconfig.drop2inv.category.mobs.category.neutral.@Tooltip": "Si está activado, los drops al matar mobs neutros irán directos al inventario",
+  "text.autoconfig.drop2inv.category.mobs.category.passive": "Pacíficos",
+  "text.autoconfig.drop2inv.category.mobs.category.passive.@Tooltip": "Si está activado, los drops al matar mobs pacíficos irán directos al inventario",
+  "text.autoconfig.drop2inv.category.mobs.per_mob_category": "Categoría por mob",
+  "text.autoconfig.drop2inv.category.mobs.per_mob_category.individual.@Tooltip": "Categoría para: %s",
+
+
+  "modmenu.summaryTranslation.drop2inv": "Agrega la función de que al romper bloques y matar mobs los drops vayan directos al inventario",
+  "modmenu.descriptionTranslation.drop2inv": "Agrega la función de que al romper bloques y matar mobs los drops vayan directos al inventario"
+}

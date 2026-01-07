@@ -1,7 +1,10 @@
-package com.guayand0.drop;
+package com.guayand0.blocks;
 
-import com.guayand0.utils.CropUtils;
-import com.guayand0.utils.DropUtils;
+import com.guayand0.config.Drop2InvConfig;
+import com.guayand0.blocks.utils.CropUtils;
+import com.guayand0.blocks.utils.DropUtils;
+import com.guayand0.blocks.utils.TreeUtils;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.CropBlock;
 import net.minecraft.server.world.ServerWorld;
@@ -15,50 +18,53 @@ public class BlockBreakHandler {
     public static void register() {
 
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
+
             if (world.isClient() || !(world instanceof ServerWorld serverWorld)) return true;
             if (player.getAbilities().creativeMode) return true;
 
+            Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+            if (!config.enabled) return true;
+            if (!config.blocks.blocks_to_inv) return true;
+
             Block block = state.getBlock();
 
-            if (block instanceof CropBlock) {
+            // CROPS
+            if (config.blocks.break_crops && block instanceof CropBlock) {
                 CropUtils.giveCropDrops(serverWorld, player, pos, state, blockEntity);
-                serverWorld.breakBlock(pos, false); // rompe sin drops
                 DropTracker.mark(pos);
+                serverWorld.breakBlock(pos, false);
                 return false;
             }
 
-            if (TreeBreakHandler.isLog(state)) {
-
+            // LOGS
+            if (config.blocks.break_tree_logs && TreeUtils.isLog(state)) {
                 ItemStack held = player.getMainHandStack();
                 if (!(held.getItem() instanceof AxeItem)) return true;
 
                 TreeBreakHandler.breakTree(serverWorld, player, pos);
-                return false;
-            }
-
-            if (block == Blocks.CHORUS_PLANT) {
-                VerticalBreakHandler.breakChorus(serverWorld, player, pos);
-                return false;
-            }
-
-            if (VerticalBreakHandler.isVerticalBlock(block)) {
-                VerticalBreakHandler.breakVertical(serverWorld, player, pos, block);
-                return false;
-            }
-
-            return true;
-        });
-
-        PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-            if (world.isClient() || !(world instanceof ServerWorld serverWorld)) return;
-            if (player.getAbilities().creativeMode) return;
-
-            if (state.getBlock() instanceof CropBlock) return;
-
-            if (!VerticalBreakHandler.isVerticalBlock(state.getBlock())) {
-                DropUtils.giveDrops(serverWorld, player, pos, state, blockEntity);
                 DropTracker.mark(pos);
+                return false;
             }
+
+            // CHORUS
+            if (config.blocks.break_chorus && block == Blocks.CHORUS_PLANT) {
+                VerticalBreakHandler.breakChorus(serverWorld, player, pos);
+                DropTracker.mark(pos);
+                return false;
+            }
+
+            // VERTICAL
+            if (config.blocks.break_vertical && VerticalBreakHandler.isVerticalBlock(block)) {
+                VerticalBreakHandler.breakVertical(serverWorld, player, pos, block);
+                DropTracker.mark(pos);
+                return false;
+            }
+
+            // BLOQUE NORMAL
+            DropUtils.giveDrops(serverWorld, player, pos, state, blockEntity);
+            DropTracker.mark(pos);
+            serverWorld.breakBlock(pos, false);
+            return false;
         });
     }
 }

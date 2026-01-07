@@ -1,6 +1,6 @@
-package com.guayand0.drop;
+package com.guayand0.blocks;
 
-import com.guayand0.utils.DropUtils;
+import com.guayand0.blocks.utils.DropUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.server.world.ServerWorld;
@@ -36,7 +36,6 @@ public class VerticalBreakHandler {
             }
 
             DropUtils.giveDrops(world, player, current, state, null);
-            DropTracker.mark(current);
             world.breakBlock(current, false);
             current = current.up();
         }
@@ -62,7 +61,6 @@ public class VerticalBreakHandler {
             }
 
             DropUtils.giveDrops(world, player, pos, state, null);
-            DropTracker.mark(pos);
             world.breakBlock(pos, false);
         }
     }

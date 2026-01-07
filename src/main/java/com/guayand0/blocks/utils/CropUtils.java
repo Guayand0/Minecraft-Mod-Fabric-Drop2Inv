@@ -1,4 +1,4 @@
-package com.guayand0.utils;
+package com.guayand0.blocks.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

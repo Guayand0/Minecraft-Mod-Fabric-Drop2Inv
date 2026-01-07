@@ -13,13 +13,10 @@ import java.util.List;
 
 public class CropUtils {
 
-    public static void giveCropDrops(ServerWorld world, PlayerEntity player, BlockPos pos,
-                                     BlockState state, @Nullable BlockEntity blockEntity) {
+    public static void giveCropDrops(ServerWorld world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
 
         ItemStack tool = player.getMainHandStack();
-
-        List<ItemStack> drops =
-                Block.getDroppedStacks(state, world, pos, blockEntity, player, tool);
+        List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, blockEntity, player, tool);
 
         for (ItemStack stack : drops) {
             player.getInventory().insertStack(stack);

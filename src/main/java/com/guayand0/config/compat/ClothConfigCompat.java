@@ -85,13 +85,13 @@ public class ClothConfigCompat {
                         .setDefaultValue(Drop2InvConfig.DEFAULTS.blocks.break_tree_leaf)
                         .setSaveConsumer(v -> config.blocks.break_tree_leaf = v).build()
         );
-        blocksSpecial.add(
+        /*blocksSpecial.add(
                 entry.startBooleanToggle(
                                 Text.translatable(CONFIG_VALUE + "blocks.special.break_crops"), config.blocks.break_crops)
                         .setTooltip(Text.translatable(CONFIG_VALUE + "blocks.special.break_crops.@Tooltip"))
                         .setDefaultValue(Drop2InvConfig.DEFAULTS.blocks.break_crops)
                         .setSaveConsumer(v -> config.blocks.break_crops = v).build()
-        );
+        );*/
         blocksSpecial.add(
                 entry.startBooleanToggle(
                                 Text.translatable(CONFIG_VALUE + "blocks.special.break_vertical"), config.blocks.break_vertical)

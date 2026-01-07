@@ -19,7 +19,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class MobDropMixin {
 
+    // 1.21.2 - 1.21.11
     @Inject(method = "dropLoot", at = @At("TAIL"))
+    private void onDropStacks(ServerWorld world, DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci) {
+
+        Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        if (!config.enabled) return;
+        if (!config.mobs.mobs_to_inv) return;
+
+        LivingEntity mob = (LivingEntity) (Object) this;
+        if (!(mob.getAttacker() instanceof ServerPlayerEntity player)) return;
+
+        EntityType<?> mobType = mob.getType();
+        MobCategory category = MobUtils.getCategory(mobType);
+
+        world.getEntitiesByClass(
+                ItemEntity.class,
+                mob.getBoundingBox(),
+                item -> item.age <= 1
+        ).forEach(item -> MobDropLogic.give(player, item, category));
+    }
+
+    // 1.20.5 - 1.21.1
+    /*@Inject(method = "dropLoot", at = @At("TAIL"))
     private void onDropStacks(DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci) {
         Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
         if (!config.enabled) return;
@@ -38,6 +60,5 @@ public abstract class MobDropMixin {
                     item -> item.age <= 1
             ).forEach(item -> MobDropLogic.give(player, item, category));
         }
-    }
-
+    }*/
 }

@@ -125,6 +125,20 @@ public class ClothConfigCompat {
 
 
 
+        SubCategoryBuilder mobsSpecial = entry.startSubCategory(Text.translatable(CONFIG_VALUE + "mobs.special"));
+
+        mobsSpecial.add(
+                entry.startBooleanToggle(
+                                Text.translatable(CONFIG_VALUE + "mobs.special.sheep_shear"), config.mobs.sheep_shear)
+                        .setTooltip(Text.translatable(CONFIG_VALUE + "mobs.special.sheep_shear.@Tooltip"))
+                        .setDefaultValue(Drop2InvConfig.DEFAULTS.mobs.sheep_shear)
+                        .setSaveConsumer(v -> config.mobs.sheep_shear = v).build()
+        );
+        mobs.addEntry(mobsSpecial.build());
+
+
+
+
         SubCategoryBuilder mobsCategory = entry.startSubCategory(Text.translatable(CONFIG_VALUE + "mobs.category"));
 
         mobsCategory.add(

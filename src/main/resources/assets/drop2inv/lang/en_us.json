@@ -10,7 +10,7 @@
   "text.autoconfig.drop2inv.category.blocks": "Blocks",
   "text.autoconfig.drop2inv.category.blocks.blocks_to_inv": "Drops to inventory",
   "text.autoconfig.drop2inv.category.blocks.blocks_to_inv.@Tooltip": "If enabled, block drops will go directly to the inventory",
-  "text.autoconfig.drop2inv.category.blocks.special": "Special functions",
+  "text.autoconfig.drop2inv.category.blocks.special": "Special features",
   "text.autoconfig.drop2inv.category.blocks.special.break_tree_logs": "Tree logs",
   "text.autoconfig.drop2inv.category.blocks.special.break_tree_logs.@Tooltip": "If enabled, breaking a tree log will break all the logs of that tree",
   "text.autoconfig.drop2inv.category.blocks.special.break_tree_leaf": "Tree leaves",
@@ -35,6 +35,9 @@
   "text.autoconfig.drop2inv.category.mobs.category.passive.@Tooltip": "If enabled, drops from peaceful mobs will go directly to the inventory",
   "text.autoconfig.drop2inv.category.mobs.per_mob_category": "Category by Mob",
   "text.autoconfig.drop2inv.category.mobs.per_mob_category.individual.@Tooltip": "Category for: %s",
+  "text.autoconfig.drop2inv.category.mobs.special": "Special features",
+  "text.autoconfig.drop2inv.category.mobs.special.sheep_shear": "Sheep shearing",
+  "text.autoconfig.drop2inv.category.mobs.special.sheep_shear.@Tooltip": "If enabled, drops from shearing sheep will go directly into the inventory",
 
 
   "modmenu.summaryTranslation.drop2inv": "Adds the function of receive block and mob drops directly to the inventory",

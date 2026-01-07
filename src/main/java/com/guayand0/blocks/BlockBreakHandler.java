@@ -23,8 +23,7 @@ public class BlockBreakHandler {
             if (player.getAbilities().creativeMode) return true;
 
             Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
-            if (!config.enabled) return true;
-            if (!config.blocks.blocks_to_inv) return true;
+            if (!config.enabled || !config.blocks.blocks_to_inv) return true;
 
             Block block = state.getBlock();
 

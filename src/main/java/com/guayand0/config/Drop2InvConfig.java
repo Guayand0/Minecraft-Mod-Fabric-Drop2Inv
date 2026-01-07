@@ -35,6 +35,8 @@ public class Drop2InvConfig implements ConfigData {
         public boolean neutral = true;
         public boolean passive = true;
 
+        public boolean sheep_shear = true;
+
         // mob_id -> category
         public Map<String, MobCategory> individual_category = new HashMap<>();
     }

@@ -35,6 +35,9 @@
   "text.autoconfig.drop2inv.category.mobs.category.passive.@Tooltip": "Si está activado, los drops al matar mobs pacíficos irán directos al inventario",
   "text.autoconfig.drop2inv.category.mobs.per_mob_category": "Categoría por mob",
   "text.autoconfig.drop2inv.category.mobs.per_mob_category.individual.@Tooltip": "Categoría para: %s",
+  "text.autoconfig.drop2inv.category.mobs.special": "Funciones especiales",
+  "text.autoconfig.drop2inv.category.mobs.special.sheep_shear": "Esquilar oveja",
+  "text.autoconfig.drop2inv.category.mobs.special.sheep_shear.@Tooltip": "Si está activado, los drops al esquilar ovejas irán directos al inventario",
 
 
   "modmenu.summaryTranslation.drop2inv": "Agrega la función de que al romper bloques y matar mobs los drops vayan directos al inventario",

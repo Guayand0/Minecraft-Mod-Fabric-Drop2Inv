@@ -21,26 +21,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SheepShearMixin {
 
     // 1.21.2 - 1.21.11
-    /*@Inject(method = "sheared", at = @At("TAIL"))
+    @Inject(method = "sheared", at = @At("TAIL"))
     private void onSheared(ServerWorld world, SoundCategory soundCategory, ItemStack shears, CallbackInfo ci) {
+
         Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
         if (!config.enabled || !config.mobs.mobs_to_inv || !config.mobs.sheep_shear) return;
 
         if (!(SheepUtils.lastShearer instanceof ServerPlayerEntity player)) return;
 
         SheepEntity sheep = (SheepEntity) (Object) this;
+        MobCategory category = MobUtils.getCategory(sheep.getType());
 
         world.getEntitiesByClass(
                 ItemEntity.class,
                 sheep.getBoundingBox(),
                 item -> item.age <= 1
-        ).forEach(item ->
-                MobDropLogic.give(player, item, MobCategory.PASSIVE)
-        );
-    }*/
+        ).forEach(item -> MobDropLogic.give(player, item, category));
+    }
 
     // 1.20.5 - 1.21.1
-    @Inject(method = "sheared", at = @At("TAIL"))
+    /*@Inject(method = "sheared", at = @At("TAIL"))
     private void onSheared(SoundCategory shearedSoundCategory, CallbackInfo ci) {
         Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
         if (!config.enabled || !config.mobs.mobs_to_inv || !config.mobs.sheep_shear) return;
@@ -58,5 +58,5 @@ public abstract class SheepShearMixin {
                     item -> item.age <= 1
             ).forEach(item -> MobDropLogic.give(player, item, category));
         }
-    }
+    }*/
 }

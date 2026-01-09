@@ -1,14 +1,11 @@
 package com.guayand0.config;
 
 import com.guayand0.mobs.MobCategory;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Config(name = "drop2inv")
-public class Drop2InvConfig implements ConfigData {
+public class Drop2InvConfig {
 
     public static final Drop2InvConfig DEFAULTS = new Drop2InvConfig();
 

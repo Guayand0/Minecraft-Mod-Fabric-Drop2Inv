@@ -1,6 +1,7 @@
 package com.guayand0.mixin;
 
 import com.guayand0.config.Drop2InvConfig;
+import com.guayand0.config.Drop2InvConfigManager;
 import com.guayand0.mobs.MobCategory;
 import com.guayand0.mobs.logic.MobDropLogic;
 import com.guayand0.mobs.utils.MobUtils;
@@ -23,7 +24,7 @@ public abstract class MobDropMixin {
     @Inject(method = "dropLoot", at = @At("TAIL"))
     private void onDropStacks(ServerWorld world, DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci) {
 
-        Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        Drop2InvConfig config = Drop2InvConfigManager.get();
         if (!config.enabled || !config.mobs.mobs_to_inv) return;
 
         LivingEntity mob = (LivingEntity) (Object) this;
@@ -42,7 +43,7 @@ public abstract class MobDropMixin {
     // 1.20.5 - 1.21.1
     /*@Inject(method = "dropLoot", at = @At("TAIL"))
     private void onDropStacks(DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci) {
-        Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        Drop2InvConfig config = Drop2InvConfigManager.get();
         if (!config.enabled || !config.mobs.mobs_to_inv) return;
 
         LivingEntity mob = (LivingEntity) (Object) this;

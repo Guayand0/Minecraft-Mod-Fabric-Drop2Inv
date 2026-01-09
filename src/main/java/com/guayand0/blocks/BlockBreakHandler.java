@@ -4,6 +4,7 @@ import com.guayand0.config.Drop2InvConfig;
 import com.guayand0.blocks.utils.CropUtils;
 import com.guayand0.blocks.utils.DropUtils;
 import com.guayand0.blocks.utils.TreeUtils;
+import com.guayand0.config.Drop2InvConfigManager;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.CropBlock;
@@ -22,7 +23,7 @@ public class BlockBreakHandler {
             if (world.isClient() || !(world instanceof ServerWorld serverWorld)) return true;
             if (player.getAbilities().creativeMode) return true;
 
-            Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+            Drop2InvConfig config = Drop2InvConfigManager.get();
             if (!config.enabled || !config.blocks.blocks_to_inv) return true;
 
             Block block = state.getBlock();

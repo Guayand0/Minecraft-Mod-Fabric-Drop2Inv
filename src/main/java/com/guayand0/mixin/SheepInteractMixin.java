@@ -1,6 +1,6 @@
 package com.guayand0.mixin;
 
-import com.guayand0.mobs.utils.SheepUtils;
+import com.guayand0.mobs.utils.MobUtils;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,7 +17,7 @@ public abstract class SheepInteractMixin {
     @Inject(method = "interactMob", at = @At("HEAD"))
     private void captureShearer(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            SheepUtils.lastShearer = serverPlayer;
+            MobUtils.lastInteractor = serverPlayer;
         }
     }
 }

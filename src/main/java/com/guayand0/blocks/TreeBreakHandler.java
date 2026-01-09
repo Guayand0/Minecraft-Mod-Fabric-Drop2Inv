@@ -3,6 +3,7 @@ package com.guayand0.blocks;
 import com.guayand0.config.Drop2InvConfig;
 import com.guayand0.blocks.utils.DropUtils;
 import com.guayand0.blocks.utils.TreeUtils;
+import com.guayand0.config.Drop2InvConfigManager;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;
@@ -20,9 +21,7 @@ public class TreeBreakHandler {
 
         if (!(player instanceof ServerPlayerEntity serverPlayer)) return;
 
-        Drop2InvConfig config =
-                AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
-
+        Drop2InvConfig config = Drop2InvConfigManager.get();
         ItemStack axe = player.getMainHandStack();
 
         Set<BlockPos> visited = new HashSet<>();

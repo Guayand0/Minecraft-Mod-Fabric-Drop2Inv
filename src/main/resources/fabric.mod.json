@@ -9,7 +9,7 @@
 		"Guayand0"
 	],
 	"contact": {
-		"homepage": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv",
+		"homepage": "https://modrinth.com/mod/drop2inv",
 		"sources": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv",
 		"issues": "https://github.com/Guayand0/Minecraft-Mod-Fabric-Drop2Inv/issues"
 	},
@@ -26,7 +26,7 @@
 			"com.guayand0.Drop2Inv"
 		],
 		"modmenu": [
-          "com.guayand0.config.compat.ModMenuIntegration"
+			"com.guayand0.config.compat.modmenu.ModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -48,7 +48,7 @@
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modrinth": "https://modrinth.com/mod/drop2inv"
+				"Modrinth": "https://modrinth.com/mod/drop2inv"
 			}
 		}
 	}

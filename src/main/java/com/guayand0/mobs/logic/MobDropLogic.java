@@ -1,6 +1,7 @@
 package com.guayand0.mobs.logic;
 
 import com.guayand0.config.Drop2InvConfig;
+import com.guayand0.config.Drop2InvConfigManager;
 import com.guayand0.mobs.MobCategory;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.entity.ItemEntity;
@@ -13,7 +14,7 @@ public class MobDropLogic {
      */
     public static void give(ServerPlayerEntity player, ItemEntity item, MobCategory category) {
 
-        Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        Drop2InvConfig config = Drop2InvConfigManager.get();
 
         boolean allow;
 

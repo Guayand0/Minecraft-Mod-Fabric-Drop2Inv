@@ -1,8 +1,9 @@
 package com.guayand0;
 
-import com.guayand0.config.compat.ClothConfigCompat;
-import com.guayand0.config.Drop2InvConfig;
-import com.guayand0.mobs.config.MobConfigLoader;
+import com.guayand0.config.compat.cloth.Drop2InvClothConfig;
+import com.guayand0.config.compat.cloth.ClothConfigCompat;
+import com.guayand0.config.compat.cloth.NoClothConfigScreen;
+import com.guayand0.mobs.config.MobConfigManager;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
@@ -17,18 +18,21 @@ public class Drop2InvClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        AutoConfig.register(Drop2InvConfig.class, GsonConfigSerializer::new);
+        // Registramos la clase puente, no la real
+        if (FabricLoader.getInstance().isModLoaded("cloth-config")) {
+            AutoConfig.register(Drop2InvClothConfig.class, GsonConfigSerializer::new);
+        }
 
         Path configPath = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID).resolve("mobs.json");
-        MobConfigLoader.load(configPath);
+        MobConfigManager.get().load(configPath);
     }
 
     public static Screen getConfigScreen(Screen parent) {
-        return ClothConfigCompat.create(parent);
-        /*if (FabricLoader.getInstance().isModLoaded("cloth-config")) {
+        //return ClothConfigCompat.create(parent);
+        if (FabricLoader.getInstance().isModLoaded("cloth-config")) {
             return ClothConfigCompat.create(parent);
         } else {
-            return screen -> null;
-        }*/
+            return new NoClothConfigScreen(parent);
+        }
     }
 }

@@ -1,12 +1,10 @@
-package com.guayand0.config.compat;
+package com.guayand0.config.compat.cloth;
 
-import com.guayand0.blocks.DropTracker;
 import com.guayand0.config.Drop2InvConfig;
+import com.guayand0.config.Drop2InvConfigManager;
 import com.guayand0.mobs.MobCategory;
-import com.guayand0.mobs.config.MobConfig;
-import com.guayand0.mobs.config.MobConfigLoader;
+import com.guayand0.mobs.config.MobConfigManager;
 import com.guayand0.mobs.utils.MobUtils;
-import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
@@ -20,21 +18,17 @@ import java.util.*;
 
 public class ClothConfigCompat {
 
-    private static final String CONFIG_VALUE = "text.autoconfig.drop2inv.category.";
+    private static final String CONFIG_VALUE = "drop2inv.category.";
     private record MobEntry(String mobId, String displayName) {}
 
     public static Screen create(Screen parent) {
-        Drop2InvConfig config =
-                AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        Drop2InvClothConfig clothConfig = new Drop2InvClothConfig();
+        Drop2InvConfig config = Drop2InvConfigManager.get();
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Text.translatable("text.autoconfig.drop2inv.title"))
-                .setSavingRunnable(() -> {
-                    AutoConfig.getConfigHolder(Drop2InvConfig.class).save();
-                    AutoConfig.getConfigHolder(Drop2InvConfig.class).load(); // Forzar recarga
-                    DropTracker.clear();
-                });
+                .setTitle(Text.literal("Drop2Inv Config"))
+                .setSavingRunnable(clothConfig::saveToManager);
 
         ConfigEntryBuilder entry = builder.entryBuilder();
 
@@ -49,7 +43,10 @@ public class ClothConfigCompat {
                         Text.translatable(CONFIG_VALUE + "general.enabled"), config.enabled)
                         .setTooltip(Text.translatable(CONFIG_VALUE + "general.enabled.@Tooltip"))
                         .setDefaultValue(Drop2InvConfig.DEFAULTS.enabled)
-                        .setSaveConsumer(v -> config.enabled = v).build()
+                        .setSaveConsumer(v -> {
+                            config.enabled = v;        // modifica config real
+                            clothConfig.enabled = v;   // sincroniza ClothConfig
+                        }).build()
         );
 
 
@@ -169,12 +166,12 @@ public class ClothConfigCompat {
 
         SubCategoryBuilder perMobCategory = entry.startSubCategory(Text.translatable(CONFIG_VALUE + "mobs.per_mob_category"));
 
-        MobConfig mobConfig = MobConfigLoader.get();
+        MobConfigManager mobConfig = MobConfigManager.get();
 
         Set<String> allMobs = new HashSet<>();
-        allMobs.addAll(mobConfig.passive);
-        allMobs.addAll(mobConfig.neutral);
-        allMobs.addAll(mobConfig.hostile);
+        allMobs.addAll(mobConfig.getPassive());
+        allMobs.addAll(mobConfig.getNeutral());
+        allMobs.addAll(mobConfig.getHostile());
 
         List<MobEntry> mobsSorted = allMobs.stream()
                 .map(mobId -> {
@@ -192,30 +189,22 @@ public class ClothConfigCompat {
 
             String mobId = entryMob.mobId();
             String displayName = entryMob.displayName();
-
             Identifier id = Identifier.tryParse(mobId);
 
-            MobCategory defaultCategory =
-                    MobUtils.getDefaultCategory(mobId, mobConfig);
-            MobCategory currentCategory =
-                    config.mobs.individual_category.getOrDefault(mobId, defaultCategory);
+            MobCategory defaultCategory = MobUtils.getDefaultCategory(mobId, mobConfig);
+            MobCategory currentCategory = config.mobs.individual_category.getOrDefault(mobId, defaultCategory);
 
             String tooltipMobId = id.getPath().toUpperCase();
-            String tooltipText =
-                    Text.translatable(CONFIG_VALUE + "mobs.per_mob_category.individual.@Tooltip", tooltipMobId).getString();
+            String tooltipText = Text.translatable(CONFIG_VALUE + "mobs.per_mob_category.individual.@Tooltip", tooltipMobId).getString();
 
             perMobCategory.add(
                     entry.startEnumSelector(
-                                    Text.literal(displayName),
-                                    MobCategory.class,
-                                    currentCategory
-                            )
+                            Text.literal(displayName), MobCategory.class, currentCategory)
                             .setTooltip(Text.literal(tooltipText))
                             .setDefaultValue(defaultCategory)
                             .setSaveConsumer(v -> config.mobs.individual_category.put(mobId, v)).build()
             );
         }
-
         mobs.addEntry(perMobCategory.build());
 
         return builder.build();

@@ -9,6 +9,7 @@ base {
 }
 
 version = project.mod_version
+var semver_version = version + "+mc" + project.minecraft_version
 group = project.maven_group
 
 sourceSets.main.java.srcDirs += 'java'
@@ -44,7 +45,7 @@ processResources {
 	inputs.property "version", version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": version
+		expand "version": semver_version
 	}
 }
 
@@ -63,7 +64,7 @@ java {
 }
 
 shadowJar {
-	relocate "blue.endless.jankson", "${project.maven_group}.shadowed.blue.endless.jankson"
+	relocate "blue.endless.jankson", "${group}.shadowed.blue.endless.jankson"
 	configurations = [project.configurations.shadow]
 	archiveClassifier = "shadow"
 

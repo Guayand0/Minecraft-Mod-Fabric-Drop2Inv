@@ -1,11 +1,10 @@
 package com.guayand0.mixin;
 
 import com.guayand0.config.Drop2InvConfig;
+import com.guayand0.config.Drop2InvConfigManager;
 import com.guayand0.mobs.MobCategory;
 import com.guayand0.mobs.logic.MobDropLogic;
 import com.guayand0.mobs.utils.MobUtils;
-import com.guayand0.mobs.utils.SheepUtils;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.ItemStack;
@@ -24,10 +23,10 @@ public abstract class SheepShearMixin {
     @Inject(method = "sheared", at = @At("TAIL"))
     private void onSheared(ServerWorld world, SoundCategory soundCategory, ItemStack shears, CallbackInfo ci) {
 
-        Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        Drop2InvConfig config = Drop2InvConfigManager.get();
         if (!config.enabled || !config.mobs.mobs_to_inv || !config.mobs.sheep_shear) return;
 
-        if (!(SheepUtils.lastShearer instanceof ServerPlayerEntity player)) return;
+        if (!(MobUtils.lastInteractor instanceof ServerPlayerEntity player)) return;
 
         SheepEntity sheep = (SheepEntity) (Object) this;
         MobCategory category = MobUtils.getCategory(sheep.getType());
@@ -42,10 +41,10 @@ public abstract class SheepShearMixin {
     // 1.20.5 - 1.21.1
     /*@Inject(method = "sheared", at = @At("TAIL"))
     private void onSheared(SoundCategory shearedSoundCategory, CallbackInfo ci) {
-        Drop2InvConfig config = AutoConfig.getConfigHolder(Drop2InvConfig.class).getConfig();
+        Drop2InvConfig config = Drop2InvConfigManager.get();
         if (!config.enabled || !config.mobs.mobs_to_inv || !config.mobs.sheep_shear) return;
 
-        if (!(SheepUtils.lastShearer instanceof ServerPlayerEntity player)) return;
+        if (!(MobUtils.lastInteractor instanceof ServerPlayerEntity player)) return;
 
         SheepEntity sheep = (SheepEntity) (Object) this;
         MobCategory category = MobUtils.getCategory(sheep.getType());

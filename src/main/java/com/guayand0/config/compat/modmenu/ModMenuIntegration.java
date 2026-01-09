@@ -1,4 +1,4 @@
-package com.guayand0.config.compat;
+package com.guayand0.config.compat.modmenu;
 
 import com.guayand0.Drop2InvClient;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;

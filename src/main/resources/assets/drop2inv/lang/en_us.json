@@ -19,6 +19,8 @@
   "drop2inv.category.blocks.special.break_tree_logs.@Tooltip": "If enabled, breaking a tree log will break all the logs of that tree",
   "drop2inv.category.blocks.special.break_tree_leaf": "Tree leaves",
   "drop2inv.category.blocks.special.break_tree_leaf.@Tooltip": "If enabled, when all logs of a tree are broken, the leaves will also break (only works if Tree logs is enabled)",
+  "drop2inv.category.blocks.special.break_giant_mushroom": "Giant mushrooms (experimental)",
+  "drop2inv.category.blocks.special.break_giant_mushroom.@Tooltip": "If enabled, breaking a giant mushroom steam will break all the giant mushroom",
   "drop2inv.category.blocks.special.break_crops": "Crops",
   "drop2inv.category.blocks.special.break_crops.@Tooltip": "If enabled, breaking crops will send drops directly to the inventory",
   "drop2inv.category.blocks.special.break_vertical": "Vertical blocks",

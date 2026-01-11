@@ -30,6 +30,9 @@ public abstract class MobDropMixin {
         LivingEntity mob = (LivingEntity) (Object) this;
         if (!(mob.getAttacker() instanceof ServerPlayerEntity player)) return;
 
+        // Verificar si el jugador está en creativo
+        if (player.getAbilities().creativeMode) return;
+
         EntityType<?> mobType = mob.getType();
         MobCategory category = MobUtils.getCategory(mobType);
 
@@ -48,6 +51,9 @@ public abstract class MobDropMixin {
 
         LivingEntity mob = (LivingEntity) (Object) this;
         if (!(mob.getAttacker() instanceof ServerPlayerEntity player)) return;
+
+        // Verificar si el jugador está en creativo
+        if (player.getAbilities().creativeMode) return;
 
         MobCategory category = MobUtils.getCategory(mob.getType());
 

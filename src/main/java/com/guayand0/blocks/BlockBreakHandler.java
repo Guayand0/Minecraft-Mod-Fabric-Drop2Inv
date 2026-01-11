@@ -1,5 +1,6 @@
 package com.guayand0.blocks;
 
+import com.guayand0.blocks.utils.MushroomUtils;
 import com.guayand0.config.Drop2InvConfig;
 import com.guayand0.blocks.utils.CropUtils;
 import com.guayand0.blocks.utils.DropUtils;
@@ -29,12 +30,12 @@ public class BlockBreakHandler {
             Block block = state.getBlock();
 
             // CROPS
-            if (config.blocks.break_crops && block instanceof CropBlock) {
+            /*if (config.blocks.break_crops && block instanceof CropBlock) {
                 CropUtils.giveCropDrops(serverWorld, player, pos, state, blockEntity);
                 DropTracker.mark(pos);
                 serverWorld.breakBlock(pos, false);
                 return false;
-            }
+            }*/
 
             // LOGS
             if (config.blocks.break_tree_logs && TreeUtils.isLog(state)) {
@@ -42,6 +43,13 @@ public class BlockBreakHandler {
                 if (!(held.getItem() instanceof AxeItem)) return true;
 
                 TreeBreakHandler.breakTree(serverWorld, player, pos);
+                DropTracker.mark(pos);
+                return false;
+            }
+
+            // GIANT MUSHROOMS
+            if (config.blocks.break_giant_mushroom && MushroomUtils.isMushroomStem(block)) {
+                GiantMushroomBreakHandler.breakMushroom(serverWorld, player, pos);
                 DropTracker.mark(pos);
                 return false;
             }

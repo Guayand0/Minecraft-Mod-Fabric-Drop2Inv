@@ -19,6 +19,8 @@
   "drop2inv.category.blocks.special.break_tree_logs.@Tooltip": "Si está activado, al romper un tronco de árbol se rompen todos los troncos de ese árbol",
   "drop2inv.category.blocks.special.break_tree_leaf": "Hojas de árbol",
   "drop2inv.category.blocks.special.break_tree_leaf.@Tooltip": "Si está activado, al rompen todos los troncos de un árbol también se rompen las hojas (solo funciona si Troncos de árbol está activado)",
+  "drop2inv.category.blocks.special.break_giant_mushroom": "Setas gigantes (experimental)",
+  "drop2inv.category.blocks.special.break_giant_mushroom.@Tooltip": "Si está activado, al romper un tallo de seta gigante se rompe toda la seta gigante",
   "drop2inv.category.blocks.special.break_crops": "Cultivos",
   "drop2inv.category.blocks.special.break_crops.@Tooltip": "Si está activado, los drops al romper cultivos irán directos al inventario",
   "drop2inv.category.blocks.special.break_vertical": "Bloques verticales",

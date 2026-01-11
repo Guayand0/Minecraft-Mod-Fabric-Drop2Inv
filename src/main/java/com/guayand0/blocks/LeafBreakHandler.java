@@ -81,20 +81,11 @@ public class LeafBreakHandler {
 
     /** Devuelve bloques adyacentes (arriba, abajo, norte, sur, este, oeste) */
     private static List<BlockPos> getAdjacent(BlockPos pos) {
-        return List.of(
-                pos.up(),
-                pos.down(),
-                pos.north(),
-                pos.south(),
-                pos.east(),
-                pos.west()
-        );
+        return List.of(pos.up(), pos.down(), pos.north(), pos.south(), pos.east(), pos.west());
     }
 
     /** Distancia Manhattan */
     private static int manhattan(BlockPos a, BlockPos b) {
-        return Math.abs(a.getX() - b.getX())
-                + Math.abs(a.getY() - b.getY())
-                + Math.abs(a.getZ() - b.getZ());
+        return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY()) + Math.abs(a.getZ() - b.getZ());
     }
 }

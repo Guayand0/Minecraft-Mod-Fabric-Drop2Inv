@@ -28,6 +28,9 @@ public abstract class SheepShearMixin {
 
         if (!(MobUtils.lastInteractor instanceof ServerPlayerEntity player)) return;
 
+        // Verificar si el jugador está en creativo
+        if (player.getAbilities().creativeMode) return;
+
         SheepEntity sheep = (SheepEntity) (Object) this;
         MobCategory category = MobUtils.getCategory(sheep.getType());
 
@@ -45,6 +48,9 @@ public abstract class SheepShearMixin {
         if (!config.enabled || !config.mobs.mobs_to_inv || !config.mobs.sheep_shear) return;
 
         if (!(MobUtils.lastInteractor instanceof ServerPlayerEntity player)) return;
+
+        // Verificar si el jugador está en creativo
+        if (player.getAbilities().creativeMode) return;
 
         SheepEntity sheep = (SheepEntity) (Object) this;
         MobCategory category = MobUtils.getCategory(sheep.getType());

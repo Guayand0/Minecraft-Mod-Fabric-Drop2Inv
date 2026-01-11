@@ -9,8 +9,32 @@ base {
 }
 
 version = project.mod_version
-var semver_version = version + "+mc" + project.minecraft_version
 group = project.maven_group
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// Leer el build actual desde build.txt
+def buildFile = file("build.txt")
+def buildNumber = 0
+
+if (project.mod_version.endsWith("-dev")) {
+	// Si termina en -dev, leemos el build actual
+	if (buildFile.exists()) {
+		buildNumber = buildFile.text.trim().toInteger()
+	}
+	// Aumentamos el build para la próxima compilación
+	buildFile.text = (buildNumber + 1).toString()
+} else {
+	// Si no es -dev, resetear build a 0
+	buildNumber = 0
+	buildFile.text = "0"
+}
+
+// Concatenar versión con build number si es dev
+version = buildNumber > 0 ? "${project.mod_version}.${buildNumber}" : "${project.mod_version}+${project.mc_range}"
+
+////////////////////////////////////////////////////////////////////////////////////
+var semver_version = version + "+mc" + project.mc_range
 
 sourceSets.main.java.srcDirs += 'java'
 sourceSets.main.resources.srcDirs += 'resources'

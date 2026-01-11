@@ -19,8 +19,9 @@ public class Drop2InvConfig {
 
         public boolean break_tree_logs = true;
         public boolean break_tree_leaf = true;
+        public boolean break_giant_mushroom = false;
 
-        public boolean break_crops = true;
+        //public boolean break_crops = true;
         public boolean break_vertical = true;
         public boolean break_chorus = true;
     }
